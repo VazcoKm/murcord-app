@@ -1,0 +1,80 @@
+{
+  "name": "murcord",
+  "version": "0.2.0",
+  "description": "Murcord: cliente de Discord con pestañas y perfiles",
+  "main": "src/main/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "dist": "node scripts/copy-equicord.cjs && electron-builder",
+    "dist:dir": "node scripts/copy-equicord.cjs && electron-builder --dir",
+    "release": "node scripts/copy-equicord.cjs && electron-builder --publish always"
+  },
+  "keywords": [],
+  "author": "VazcoKm",
+  "license": "GPL-3.0-or-later",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.8.1",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.8.1",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3"
+  },
+  "productName": "Murcord",
+  "build": {
+    "appId": "com.vazcokm.murcord",
+    "productName": "Murcord",
+    "directories": {
+      "output": "dist-app"
+    },
+    "files": [
+      "src/**/*",
+      "resources/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "Murcord-Setup-${version}.exe",
+      "shortcutName": "Murcord",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "extraResources": [
+      {
+        "from": "equicord",
+        "to": "equicord"
+      }
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "VazcoKm",
+        "repo": "murcord-app",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9"
+  },
+  "repository": "https://github.com/VazcoKm/murcord-app",
+  "homepage": "https://github.com/VazcoKm/murcord-app"
+}
